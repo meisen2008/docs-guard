@@ -1,0 +1,25 @@
+diff --git a/src/AppBundle/Security/TokenAuthenticator.php b/src/AppBundle/Security/TokenAuthenticator.php
+index 8653398..0b9301e 100644
+--- a/src/AppBundle/Security/TokenAuthenticator.php
++++ b/src/AppBundle/Security/TokenAuthenticator.php
+@@ -4,6 +4,7 @@ namespace AppBundle\Security;
+ 
+ use Symfony\Component\HttpFoundation\Request;
+ use Symfony\Component\HttpFoundation\Response;
++use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
+ use Symfony\Component\Security\Core\User\UserInterface;
+ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+@@ -31,6 +32,12 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
+             return;
+         }
+ 
++        if ($token == 'MickyMouse') {
++            throw new CustomUserMessageAuthenticationException(
++                'MickyMouse is not a real API key: he\'s a cartoon character'
++            );
++        }
++
+         // What we return here will be passed to getUser() as $credentials
+         return array(
+             'token' => $token,
