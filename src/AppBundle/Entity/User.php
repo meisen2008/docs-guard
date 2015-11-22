@@ -26,7 +26,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", unique=true)
      */
-    private $apiKey;
+    private $apiToken;
 
     public function getUsername()
     {
@@ -53,13 +53,13 @@ class User implements UserInterface
         $this->username = $username;
     }
 
-    public function getApiKey()
+    public function getApiToken()
     {
-        return $this->apiKey;
+        return $this->apiToken;
     }
 
-    public function setApiKey($apiKey)
+    public function setApiToken($apiToken)
     {
-        $this->apiKey = $apiKey;
+        $this->apiToken = $apiToken;
     }
 }
