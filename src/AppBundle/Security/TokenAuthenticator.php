@@ -3,6 +3,7 @@
 namespace AppBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
@@ -29,6 +30,12 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         if (!$token = $request->headers->get('X-AUTH-TOKEN')) {
             // no token? Return null and no other methods will be called
             return;
+        }
+
+        if ($token == 'MickyMouse') {
+            throw new CustomUserMessageAuthenticationException(
+                'MickyMouse is not a real API key: he\'s a cartoon character'
+            );
         }
 
         // What we return here will be passed to getUser() as $credentials
